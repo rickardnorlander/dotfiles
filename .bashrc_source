@@ -1,0 +1,39 @@
+# -*- mode: shell-script -*-
+
+# Inspirations include
+#   http://emilis.github.io/2011/09/12/customized-bash-prompt.html
+# Does not change PS1 to display dashes, because it doesn't work well with venv display.
+
+HISTCONTROL=ignoreboth
+HISTSIZE=200000
+HISTFILESIZE=200000
+shopt -s histappend
+shopt -s checkwinsize
+
+reset_style='\033[00m'
+status_style=$reset_style'\033[0;90m'
+
+function prompt_command {
+    A=$?
+    # 0 = ok
+    # 127 = command not found
+    # 130 = pressed ctrl-c while typing command
+    if [ $A -ne 0 -a $A -ne 127 -a $A -ne 130 ]; then
+	echo -e "\033[0;91mLast command failed with exit code $A\033[0m"
+    fi
+
+    builtin history -a
+
+    fillsize=$(( $COLUMNS - 9 ))
+    fillsize=$(( $fillsize > 3 ? $fillsize : 3 ))
+
+    fill=$(head -c $fillsize /dev/zero | tr "\0" "-")
+    echo -e "$status_style$fill $(date +%T)$resetstyle"
+}
+PROMPT_COMMAND=prompt_command
+
+export EDITOR="emacs -nw"
+
+export PATH="/home/rickard/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
