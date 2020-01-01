@@ -7,12 +7,12 @@
 ; Remember recent files
 (require 'recentf)
 (recentf-mode 1)
-(setq recentf-max-menu-items 25)
+(setq recentf-max-menu-items 100)
+(setq recentf-max-saved-items 100)
 (global-set-key "\C-x\ \C-r" 'recentf-open-files)
 
 ; Add repos for packages
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("marmalade" . "http://marmalade-repo.org/packages/")
                          ("melpa" . "http://melpa.milkbox.net/packages/")))
 
 
@@ -25,14 +25,9 @@
 (setq auto-save-list-file-prefix
       emacs-tmp-dir)
 
-; Yaml mode
-(require 'yaml-mode)
-(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
-
-; Nasm mode
-(load "~/.emacs.d/plugins/nasm-mode.el")
-(require 'nasm-mode)
-(add-to-list 'auto-mode-alist '("\\.\\(asm\\|s\\)$" . nasm-mode))
+(load "~/.emacs.d/protobuf-mode.el")
+(require 'protobuf-mode)
+(add-to-list 'auto-mode-alist '("\\.proto$" . protobuf-mode))
 
 ; Use undo-tree instead of default undo system
 (global-undo-tree-mode)
@@ -73,11 +68,14 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-enabled-themes (quote (leuven)))
  '(inhibit-startup-screen t)
- '(uniquify-buffer-name-style (quote post-forward-angle-brackets) nil (uniquify)))
+ '(package-selected-packages (quote (uniquify-files undo-tree))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(trailing-whitespace ((t (:background "red")))))
+
+(setq-default show-trailing-whitespace t)
