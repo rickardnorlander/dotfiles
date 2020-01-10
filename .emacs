@@ -17,7 +17,7 @@
 
 
 ; Save all backup/autosaves in one directory
-(defconst emacs-tmp-dir "~/emacsbackups")
+(defconst emacs-tmp-dir "~/emacsbackups/")
 (setq backup-directory-alist
       `((".*" . ,emacs-tmp-dir)))
 (setq auto-save-file-name-transforms
