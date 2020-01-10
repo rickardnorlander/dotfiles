@@ -28,7 +28,7 @@ function prompt_command {
     fillsize=$(( $fillsize > 3 ? $fillsize : 3 ))
 
     fill=$(head -c $fillsize /dev/zero | tr "\0" "-")
-    echo -e "$status_style$fill $(date +%T)$resetstyle"
+    echo -e "$status_style$fill $(date +%T)${reset_style}"
 }
 PROMPT_COMMAND=prompt_command
 
