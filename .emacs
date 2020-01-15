@@ -50,6 +50,7 @@
 (scroll-bar-mode -1)
 ; Disable blinking cursor
 (blink-cursor-mode -1)
+(global-subword-mode 1)
 
 (defun kill-filename ()
   "Put the current file name on the clipboard"
